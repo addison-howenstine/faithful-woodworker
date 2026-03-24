@@ -23,21 +23,28 @@ const STATUS_LABELS: Record<OrderRecord['status'], string> = {
 }
 
 export default function AdminPage() {
-  const [authenticated, setAuthenticated] = useState(false)
-  const [password, setPassword] = useState('')
+  const [adminKey, setAdminKey] = useState('')
+  const [passwordInput, setPasswordInput] = useState('')
+  const [loginError, setLoginError] = useState('')
   const [orders, setOrders] = useState<OrderRecord[]>([])
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState<StatusFilter>('all')
   const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null)
 
-  const fetchOrders = useCallback(async () => {
-    if (!config.appsScriptUrl) return
+  const fetchOrders = useCallback(async (key: string) => {
+    if (!config.appsScriptUrl || !key) return
     setLoading(true)
     try {
       const res = await fetch(
-        `${config.appsScriptUrl}?action=admin&key=${config.adminPassword}`
+        `${config.appsScriptUrl}?action=admin&key=${encodeURIComponent(key)}`
       )
       const data = await res.json()
+      if (data.error === 'Unauthorized') {
+        setAdminKey('')
+        setLoginError('Incorrect password')
+        setLoading(false)
+        return
+      }
       setOrders(data.orders || [])
     } catch (e) {
       console.error('Failed to fetch orders:', e)
@@ -47,23 +54,28 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => {
-    if (authenticated) fetchOrders()
-  }, [authenticated, fetchOrders])
+    if (adminKey) fetchOrders(adminKey)
+  }, [adminKey, fetchOrders])
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoginError('')
+    setAdminKey(passwordInput)
+  }
 
   const updateOrderStatus = async (orderId: string, newStatus: OrderRecord['status']) => {
-    if (!config.appsScriptUrl) return
+    if (!config.appsScriptUrl || !adminKey) return
     try {
       await fetch(config.appsScriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'updateStatus',
-          key: config.adminPassword,
+          key: adminKey,
           orderId,
           status: newStatus,
         }),
       })
-      // Update local state
       setOrders((prev) =>
         prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
       )
@@ -87,30 +99,23 @@ export default function AdminPage() {
     cancelled: orders.filter((o) => o.status === 'cancelled').length,
   }
 
-  // Login gate
-  if (!authenticated) {
+  // Login gate — validates against Apps Script server, never stores password in code
+  if (!adminKey) {
     return (
       <div className="pt-24 pb-20 min-h-screen flex items-center justify-center">
         <div className="max-w-sm mx-auto px-6">
           <h1 className="font-display text-2xl text-walnut mb-6 text-center">Admin Login</h1>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              if (password === config.adminPassword) {
-                setAuthenticated(true)
-              } else {
-                alert('Incorrect password')
-              }
-            }}
-            className="space-y-4"
-          >
+          <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
               placeholder="Enter admin password"
               className="w-full px-4 py-3 border border-border rounded bg-warm-white focus:outline-none focus:ring-2 focus:ring-walnut/30"
             />
+            {loginError && (
+              <p className="text-red-600 text-sm text-center">{loginError}</p>
+            )}
             <button
               type="submit"
               className="w-full bg-walnut text-cream py-3 rounded font-medium hover:bg-oak transition-colors"
@@ -129,7 +134,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-8">
           <h1 className="font-display text-3xl text-walnut">Order Dashboard</h1>
           <button
-            onClick={fetchOrders}
+            onClick={() => fetchOrders(adminKey)}
             disabled={loading}
             className="text-sm text-walnut hover:text-oak border border-border px-4 py-2 rounded transition-colors disabled:opacity-50"
           >

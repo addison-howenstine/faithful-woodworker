@@ -10,7 +10,6 @@ export interface SiteConfig {
     facebook: string
   }
   appsScriptUrl: string
-  adminPassword: string
 }
 
 export interface HomeContent {

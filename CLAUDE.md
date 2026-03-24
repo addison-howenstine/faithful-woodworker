@@ -142,7 +142,7 @@ Mobile: hamburger → fullscreen overlay
 1. Create Google Sheet with "Orders" sheet (columns: id, timestamp, name, email, phone, projectType, dimensions, style, colorPreference, budget, description, status, notes)
 2. Extensions → Apps Script → paste `google-apps-script/Code.gs`
 3. Set Script Properties:
-   - `ADMIN_KEY`: must match `adminPassword` in `config.json`
+   - `ADMIN_KEY`: the admin password Austin uses to log in (only stored server-side in Script Properties, never in client code)
    - `NOTIFICATION_EMAIL`: `austinhowenstine@gmail.com`
 4. Deploy → New deployment → Web app → Execute as Me → Anyone can access
 5. Copy deployment URL to `config.json` → `appsScriptUrl`
@@ -153,7 +153,7 @@ Mobile: hamburger → fullscreen overlay
 
 ### Admin Dashboard
 - Accessible at `/admin/` (not linked in nav)
-- Password-protected (password in `config.json` → `adminPassword`)
+- Password-protected (password is the `ADMIN_KEY` in Apps Script Properties — validated server-side, never in client code)
 - Shows all orders with status filters and counts
 - Click any order to view details and update status
 - Statuses: new → quoted → in_progress → completed (or cancelled)
@@ -204,8 +204,7 @@ Mobile: hamburger → fullscreen overlay
 - [ ] Add family photo to `/public/photos/about/family.jpg` (about page)
 - [ ] Create Google Sheet with "Orders" sheet + deploy Apps Script (see setup instructions above)
 - [ ] Set `appsScriptUrl` in `config.json` after deploying Apps Script
-- [ ] Set Script Properties in Apps Script: `ADMIN_KEY` = adminPassword, `NOTIFICATION_EMAIL` = `austinhowenstine@gmail.com`
-- [ ] Update `adminPassword` in `config.json` to something Austin will remember
+- [ ] Set Script Properties in Apps Script: `ADMIN_KEY` = a password Austin will remember, `NOTIFICATION_EMAIL` = `austinhowenstine@gmail.com`
 - [ ] Test order form end-to-end (submit order → check Sheet → check email notification)
 - [ ] Test admin dashboard at `/admin/` (login → view orders → update status)
 - [ ] Add Austin's Instagram post URLs to `instagram.json → posts[].instagramUrl`
