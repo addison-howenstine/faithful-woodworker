@@ -1,0 +1,34 @@
+{
+  "heading": "Follow the Journey",
+  "subheading": "Watch the builds come to life on Instagram.",
+  "handle": "@austinhowenstine",
+  "profileUrl": "https://instagram.com/austinhowenstine",
+  "reels": [
+    {
+      "url": "",
+      "caption": ""
+    }
+  ],
+  "posts": [
+    {
+      "filename": "howenstine-family-sign.jpg",
+      "instagramUrl": "",
+      "caption": "Howenstine Family Sign"
+    },
+    {
+      "filename": "lejao-family-sign.jpg",
+      "instagramUrl": "",
+      "caption": "Lejao Family Sign"
+    },
+    {
+      "filename": "lightning-mcqueen-workshop.jpg",
+      "instagramUrl": "",
+      "caption": "Lightning McQueen Wall Art"
+    },
+    {
+      "filename": "buzz-lightyear-wall.jpg",
+      "instagramUrl": "",
+      "caption": "Buzz Lightyear Wall Art"
+    }
+  ]
+}

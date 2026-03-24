@@ -2,10 +2,11 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { home, portfolio } from '@/content'
+import { home, portfolio, config } from '@/content'
 import { assetPath } from '@/utils/basePath'
 import EditableText from '@/components/ui/EditableText'
 import ProgressTracker from '@/components/ui/ProgressTracker'
+import InstagramSection from '@/components/ui/InstagramSection'
 
 export default function HomePage() {
   // Show first 6 portfolio items as preview
@@ -29,6 +30,9 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 py-32 text-center">
+          <EditableText file="config" path="siteName" as="p" className="font-display text-2xl md:text-3xl lg:text-4xl mb-4 tracking-wide text-accent-light uppercase">
+            {config.siteName}
+          </EditableText>
           <EditableText file="home" path="hero.headline" as="h1" className="font-display text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
             {home.hero.headline}
           </EditableText>
@@ -128,6 +132,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Instagram Section */}
+      <InstagramSection />
 
       {/* CTA Section */}
       <section className="py-20 bg-walnut text-cream">

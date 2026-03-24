@@ -39,6 +39,7 @@ All editable content lives in `src/content/` as JSON files with a TypeScript wra
 - `about.json` — About page heading, family photo path, story paragraphs
 - `portfolio.json` — Portfolio heading/subheading, items array (filename, alt, title, category)
 - `order.json` — Form heading, success message, field options (project types, styles, budget ranges), turnaround note
+- `instagram.json` — Instagram section heading, handle, curated posts (local thumbnails linking to IG), embedded reels
 
 Types are defined in `src/types/index.ts`.
 
@@ -54,7 +55,7 @@ Types are defined in `src/types/index.ts`.
 - **GET** `?file=<name>` — Read a content JSON file
 - **PUT** `?file=<name>` — Update a field: `{ path: "dot.notation.path", value: "new value" }`
 - **POST** `?file=<name>` — Array operations (add, remove, move)
-- Allowed files: config, home, about, portfolio, order
+- Allowed files: config, home, about, portfolio, order, instagram
 
 ### Photo Directories
 - `/public/photos/portfolio/` — Portfolio project photos (referenced by filename in portfolio.json)
@@ -65,7 +66,7 @@ Types are defined in `src/types/index.ts`.
 ```
 src/components/
   layout/     Nav, Footer
-  ui/         EditableText, ProgressTracker
+  ui/         EditableText, ProgressTracker, InstagramSection
 ```
 
 ### Color Palette (defined in globals.css @theme)
@@ -87,8 +88,26 @@ Configurable via `home.json → progressTracker`:
 - `label`: Text label shown above the bar
 - `percentage`: 0-100, representing progress toward goal
 
+### Instagram Section
+Curated Instagram content on the homepage, driven by `instagram.json`:
+- **Posts**: Local thumbnail images (from `public/photos/portfolio/`) linking to Instagram post URLs. Austin adds `filename`, `instagramUrl`, and `caption` to the posts array.
+- **Reels**: Embedded via Instagram's iframe embed (just paste the reel URL into the `url` field). Set to empty string to hide.
+- **Follow CTA**: Links to Austin's Instagram profile
+- No API keys required — all content is manually curated
+
+To add a new Instagram post:
+1. Save a photo to `public/photos/portfolio/`
+2. Add an entry to `instagram.json → posts` with `filename`, `instagramUrl`, and `caption`
+
+To embed a reel:
+1. Copy the reel URL from Instagram (e.g., `https://www.instagram.com/reel/XXXXX/`)
+2. Add it to `instagram.json → reels` array with `url` and optional `caption`
+
+### Asset Paths (basePath)
+`next/image` with `unoptimized: true` in static export doesn't auto-prepend `basePath`. All image `src` attributes must use `assetPath()` from `src/utils/basePath.ts`. This reads `NEXT_PUBLIC_BASE_PATH` (set via `next.config.ts` env block) and prepends it. When using a custom domain (no subdirectory), the base path is empty and `assetPath()` is a no-op.
+
 ### Navigation
-Desktop: horizontal links with "Order Custom Project" as a styled button
+Desktop: horizontal links with "Order Custom Project" as a styled button. Solid background always.
 Mobile: hamburger → fullscreen overlay
 
 ## Google Sheets Integration
@@ -161,24 +180,40 @@ Mobile: hamburger → fullscreen overlay
 ### Important Notes
 - GitHub Pages serves from the `out/` directory built by Next.js static export
 - Images are unoptimized (no Next.js image optimization server in static mode)
-- `basePath` may need to be set in `next.config.ts` if deployed to a subdirectory (e.g., `/faithful-woodworker/`). Remove it when using a custom domain.
+- `basePath` is set to `/faithful-woodworker` when `GITHUB_PAGES=true` env var is present (set in the GitHub Actions workflow). Remove the `GITHUB_PAGES` env var and basePath logic when switching to a custom domain.
+- All image `src` attributes must use `assetPath()` — see "Asset Paths" section above
 
 ## TODOs
 
 ### Before Launch
-- [ ] Add family photo to `/public/photos/hero/family.jpg`
-- [ ] Add family photo to `/public/photos/about/family.jpg`
-- [ ] Create Google Sheet + deploy Apps Script
-- [ ] Set `appsScriptUrl` in `config.json`
-- [ ] Add social media links to `config.json`
+- [ ] Add family photo to `/public/photos/hero/family.jpg` (hero background on homepage)
+- [ ] Add family photo to `/public/photos/about/family.jpg` (about page)
+- [ ] Create Google Sheet with "Orders" sheet + deploy Apps Script (see setup instructions above)
+- [ ] Set `appsScriptUrl` in `config.json` after deploying Apps Script
+- [ ] Set Script Properties in Apps Script: `ADMIN_KEY` = adminPassword, `NOTIFICATION_EMAIL` = `austinhowenstine@gmail.com`
 - [ ] Update `adminPassword` in `config.json` to something Austin will remember
-- [ ] Create GitHub repo and push
-- [ ] Enable GitHub Pages in repo settings (Source: GitHub Actions)
-- [ ] Test order form end-to-end
-- [ ] Test admin dashboard
+- [ ] Test order form end-to-end (submit order → check Sheet → check email notification)
+- [ ] Test admin dashboard at `/admin/` (login → view orders → update status)
+- [ ] Add Austin's Instagram post URLs to `instagram.json → posts[].instagramUrl`
+- [ ] Add Austin's best Reel URLs to `instagram.json → reels[].url`
+- [ ] Add TikTok link to `config.json → socialLinks.tiktok` (if applicable)
+- [ ] Review all pages on mobile for polish
+- [ ] Get Austin's feedback on Disney progress tracker (hide via `home.json → progressTracker.enabled: false` if he doesn't want it)
+
+### Custom Domain Setup
+- [ ] Buy `faithfulwoodworker.com`
+- [ ] In repo Settings → Pages → Custom domain → enter `faithfulwoodworker.com`
+- [ ] At domain registrar, add DNS records:
+  - A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - CNAME: `www` → `addison-howenstine.github.io`
+- [ ] Enable "Enforce HTTPS" in repo Settings → Pages
+- [ ] Add `CNAME` file to `/public/` containing `faithfulwoodworker.com`
+- [ ] Remove `GITHUB_PAGES` env var from `.github/workflows/deploy.yml`
+- [ ] Remove `isGitHubPages` / `basePath` logic from `next.config.ts` (set basePath to `''`)
 
 ### After Launch
-- [ ] Buy `faithfulwoodworker.com` and configure custom domain
-- [ ] Add more portfolio photos as Austin completes projects
-- [ ] Update Disney progress tracker percentage as fundraising progresses
-- [ ] Add Austin's social media links (Instagram, TikTok)
+- [ ] Add more portfolio photos as Austin completes projects (drop in `public/photos/portfolio/`, add to `portfolio.json`)
+- [ ] Update Disney progress tracker percentage in `home.json → progressTracker.percentage`
+- [ ] Keep Instagram section fresh — add new post/reel URLs to `instagram.json`
+- [ ] Consider adding Framer Motion animations for scroll reveals (like wedding site)
+- [ ] Consider adding a blog/updates page if Austin wants to post build progress

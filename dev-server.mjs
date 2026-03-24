@@ -12,7 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const CONTENT_DIR = path.join(__dirname, 'src', 'content')
 const PORT = 3001
 
-const ALLOWED_FILES = ['config', 'home', 'about', 'portfolio', 'order']
+const ALLOWED_FILES = ['config', 'home', 'about', 'portfolio', 'order', 'instagram']
 
 function getFilePath(file) {
   if (!ALLOWED_FILES.includes(file)) return null

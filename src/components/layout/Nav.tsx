@@ -13,13 +13,6 @@ const navLinks = [
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -29,11 +22,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-warm-white/95 backdrop-blur-sm shadow-sm'
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-warm-white/95 backdrop-blur-sm shadow-sm"
       >
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl text-walnut hover:text-oak transition-colors">

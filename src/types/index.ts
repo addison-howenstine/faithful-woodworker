@@ -59,6 +59,26 @@ export interface PortfolioContent {
   items: PortfolioItem[]
 }
 
+export interface InstagramPost {
+  filename: string
+  instagramUrl: string
+  caption: string
+}
+
+export interface InstagramReel {
+  url: string
+  caption: string
+}
+
+export interface InstagramContent {
+  heading: string
+  subheading: string
+  handle: string
+  profileUrl: string
+  reels: InstagramReel[]
+  posts: InstagramPost[]
+}
+
 export interface OrderContent {
   heading: string
   subheading: string
