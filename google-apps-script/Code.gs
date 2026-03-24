@@ -85,8 +85,9 @@ function handleSubmitOrder(data) {
 
   sheet.appendRow(row);
 
-  // Send email notification
+  // Send email notifications
   sendOrderNotification(data, id);
+  sendCustomerConfirmation(data, id);
 
   return jsonResponse({ success: true, id: id });
 }
@@ -128,6 +129,43 @@ View all orders in your admin dashboard or Google Sheet.
     to: email,
     subject: subject,
     body: body,
+  });
+}
+
+function sendCustomerConfirmation(data, orderId) {
+  if (!data.email) return;
+
+  const subject = 'Faithful Woodworker — Order Request Received!';
+
+  const body = `
+Hi ${data.name || 'there'}!
+
+Thank you for your custom project request with Faithful Woodworker! I've received your order and will review the details shortly.
+
+Here's a summary of what you submitted:
+
+Order ID: ${orderId}
+Project Type: ${data.projectType || 'Custom Project'}
+Style: ${data.style || 'Not specified'}
+Dimensions: ${data.dimensions || 'Not specified'}
+Color/Wood: ${data.colorPreference || 'Not specified'}
+Budget: ${data.budget || 'Not specified'}
+
+Description:
+${data.description || 'No description provided'}
+
+I'll get back to you with a quote and timeline soon. If you have any questions in the meantime, just reply to this email.
+
+Thanks for supporting Faithful Woodworker!
+
+— Austin Howenstine
+  `.trim();
+
+  MailApp.sendEmail({
+    to: data.email,
+    subject: subject,
+    body: body,
+    replyTo: 'austinhowenstine@gmail.com',
   });
 }
 

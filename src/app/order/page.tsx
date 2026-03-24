@@ -59,14 +59,17 @@ export default function OrderPage() {
 
       const response = await fetch(config.appsScriptUrl, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(submission),
       })
 
-      // no-cors means we can't read the response, so assume success
-      setStatus('success')
-      setForm(initialForm)
+      const data = await response.json()
+      if (data.success) {
+        setStatus('success')
+        setForm(initialForm)
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
