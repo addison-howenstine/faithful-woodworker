@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { order, config } from '@/content'
+import EditableText from '@/components/ui/EditableText'
 
 interface FormData {
   name: string
@@ -94,10 +95,12 @@ export default function OrderPage() {
       <div className="max-w-2xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="font-display text-4xl md:text-5xl text-walnut mb-4">
+          <EditableText file="order" path="heading" as="h1" className="font-display text-4xl md:text-5xl text-walnut mb-4">
             {order.heading}
-          </h1>
-          <p className="text-muted text-lg">{order.subheading}</p>
+          </EditableText>
+          <EditableText file="order" path="subheading" as="p" className="text-muted text-lg" multiline>
+            {order.subheading}
+          </EditableText>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -234,7 +237,9 @@ export default function OrderPage() {
             />
           </div>
 
-          <p className="text-sm text-muted italic">{order.turnaroundNote}</p>
+          <EditableText file="order" path="turnaroundNote" as="p" className="text-sm text-muted italic">
+            {order.turnaroundNote}
+          </EditableText>
 
           <button
             type="submit"

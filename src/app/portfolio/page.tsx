@@ -7,6 +7,7 @@ import Masonry from 'react-masonry-css'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
 import { portfolio } from '@/content'
+import EditableText from '@/components/ui/EditableText'
 
 const breakpointColumns = {
   default: 3,
@@ -35,12 +36,12 @@ export default function PortfolioPage() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="font-display text-4xl md:text-5xl text-walnut mb-4">
+          <EditableText file="portfolio" path="heading" as="h1" className="font-display text-4xl md:text-5xl text-walnut mb-4">
             {portfolio.heading}
-          </h1>
-          <p className="text-muted text-lg max-w-2xl mx-auto">
+          </EditableText>
+          <EditableText file="portfolio" path="subheading" as="p" className="text-muted text-lg max-w-2xl mx-auto">
             {portfolio.subheading}
-          </p>
+          </EditableText>
         </div>
 
         {/* Category filter */}
@@ -66,29 +67,35 @@ export default function PortfolioPage() {
           className="flex -ml-6 w-auto"
           columnClassName="pl-6 bg-clip-padding"
         >
-          {filteredItems.map((item, i) => (
-            <div
-              key={item.filename}
-              className="mb-6 cursor-pointer group"
-              onClick={() => setLightboxIndex(i)}
-            >
-              <div className="relative overflow-hidden rounded-lg bg-border">
-                <Image
-                  src={`/photos/portfolio/${item.filename}`}
-                  alt={item.alt}
-                  width={600}
-                  height={600}
-                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white font-medium text-sm">{item.title}</p>
+          {filteredItems.map((item, i) => {
+            // Find the original index in portfolio.items for EditableText path
+            const originalIndex = portfolio.items.indexOf(item)
+            return (
+              <div
+                key={item.filename}
+                className="mb-6 cursor-pointer group"
+                onClick={() => setLightboxIndex(i)}
+              >
+                <div className="relative overflow-hidden rounded-lg bg-border">
+                  <Image
+                    src={`/photos/portfolio/${item.filename}`}
+                    alt={item.alt}
+                    width={600}
+                    height={600}
+                    className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <EditableText file="portfolio" path={`items.${originalIndex}.title`} as="p" className="text-white font-medium text-sm">
+                        {item.title}
+                      </EditableText>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </Masonry>
 
         {/* Lightbox */}

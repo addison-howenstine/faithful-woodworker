@@ -10,7 +10,9 @@
 
 ## Commands
 ```bash
-npm run dev          # Start Next.js dev server (port 3000)
+npm run dev          # Starts Next.js + content editor API (port 3000 + 3001)
+npm run dev:next     # Next.js only
+npm run dev:editor   # Content editor API only
 npm run build        # Static export to /out
 npm run lint         # ESLint
 ```
@@ -40,7 +42,19 @@ All editable content lives in `src/content/` as JSON files with a TypeScript wra
 
 Types are defined in `src/types/index.ts`.
 
-**To edit site content:** Edit the JSON files directly. No code changes needed for text, images, or form options.
+**To edit site content:** Edit the JSON files directly, or use the dev editing UI (see below). No code changes needed for text, images, or form options.
+
+### Dev-Only Content Editing
+- `dev-server.mjs` runs on port 3001 alongside Next.js (via `concurrently`)
+- Provides GET/PUT/POST API for reading/writing JSON content files
+- `EditableText` component wraps all text — **Shift+click to edit inline** in dev, renders as plain element in production (zero overhead)
+- All dev UI is gated on `process.env.NODE_ENV === 'development'` which Next.js dead-code-eliminates at build time — nothing leaks to production
+
+### Dev Server API (port 3001)
+- **GET** `?file=<name>` — Read a content JSON file
+- **PUT** `?file=<name>` — Update a field: `{ path: "dot.notation.path", value: "new value" }`
+- **POST** `?file=<name>` — Array operations (add, remove, move)
+- Allowed files: config, home, about, portfolio, order
 
 ### Photo Directories
 - `/public/photos/portfolio/` — Portfolio project photos (referenced by filename in portfolio.json)
@@ -51,7 +65,7 @@ Types are defined in `src/types/index.ts`.
 ```
 src/components/
   layout/     Nav, Footer
-  ui/         ProgressTracker
+  ui/         EditableText, ProgressTracker
 ```
 
 ### Color Palette (defined in globals.css @theme)
@@ -113,8 +127,12 @@ Mobile: hamburger → fullscreen overlay
 
 ## Key Conventions
 - All content edits go through JSON files, never hardcoded in components
+- ALL visible text must be wrapped in `EditableText` with correct `file` and `path` props
+- The `EditableText` component needs `file` (JSON filename) and `path` (dot-notation field path, e.g. `"hero.headline"` or `"paragraphs.0"`)
+- `EditableText` auto-renders `[text](url)` as links and `**text**` as bold in both dev and production
 - Pages are thin — they compose layout + content + components
 - Components that use hooks need `'use client'`
+- Static build excludes all dev editing — `process.env.NODE_ENV` check is dead-code-eliminated by Next.js at build time
 - `trailingSlash: true` means pages export as `page/index.html` — clean URLs on GitHub Pages
 - Static build has zero dev overhead — no server-side code ships
 

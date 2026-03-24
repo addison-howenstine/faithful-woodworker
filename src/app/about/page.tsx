@@ -1,6 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { about, config } from '@/content'
+import EditableText from '@/components/ui/EditableText'
 
 export default function AboutPage() {
   return (
@@ -8,9 +11,9 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="font-display text-4xl md:text-5xl text-walnut mb-4">
+          <EditableText file="about" path="heading" as="h1" className="font-display text-4xl md:text-5xl text-walnut mb-4">
             {about.heading}
-          </h1>
+          </EditableText>
         </div>
 
         {/* Content */}
@@ -32,9 +35,9 @@ export default function AboutPage() {
           <div className="flex-1">
             <div className="space-y-6">
               {about.paragraphs.map((paragraph, i) => (
-                <p key={i} className="text-lg text-muted leading-relaxed">
+                <EditableText key={i} file="about" path={`paragraphs.${i}`} as="p" className="text-lg text-muted leading-relaxed" multiline>
                   {paragraph}
-                </p>
+                </EditableText>
               ))}
             </div>
 

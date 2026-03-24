@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --kill-others \"node dev-server.mjs\" \"next dev\"",
+    "dev:next": "next dev",
+    "dev:editor": "node dev-server.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -23,6 +25,7 @@
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
+    "concurrently": "^9.2.1",
     "typescript": "^5.9.3"
   }
 }
