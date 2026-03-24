@@ -1,5 +1,19 @@
 # Faithful Woodworker — Custom Woodworking Website
 
+## Editors
+
+There are two people who work on this site. Adapt your communication style accordingly:
+
+- **Addison** — The site's developer and Austin's brother. Software engineer. Talk to him like a peer. He built this site and handles all technical setup (Apps Script, deployment, infrastructure). He knows what he's doing.
+
+- **Austin** — The woodworker and site owner. **Has zero coding or web development experience.** He edits content (text, photos, Instagram links) via JSON files and pushes to GitHub. When working with Austin:
+  - Explain everything step by step, assume nothing about technical knowledge
+  - Never use jargon without explaining it
+  - Be extra careful before deploying — walk him through what will change and confirm before pushing
+  - If something could break the site, warn him clearly and suggest he ask Addison
+  - His typical workflow: edit JSON files → preview locally → push to GitHub → site auto-updates
+  - If he asks to change code (not just content), suggest he check with Addison first
+
 ## Tech Stack
 - **Framework:** Next.js 16 (App Router) with static export (`output: 'export'`)
 - **Language:** TypeScript (strict)
