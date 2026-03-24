@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { home, portfolio } from '@/content'
+import { assetPath } from '@/utils/basePath'
 import EditableText from '@/components/ui/EditableText'
 import ProgressTracker from '@/components/ui/ProgressTracker'
 
@@ -17,7 +18,7 @@ export default function HomePage() {
         {/* Background image with overlay */}
         <div className="absolute inset-0">
           <Image
-            src={home.hero.heroImage}
+            src={assetPath(home.hero.heroImage)}
             alt="The Howenstine Family"
             fill
             className="object-cover opacity-30"
@@ -100,7 +101,7 @@ export default function HomePage() {
                 className="group relative aspect-square overflow-hidden rounded-lg bg-border"
               >
                 <Image
-                  src={`/photos/portfolio/${item.filename}`}
+                  src={assetPath(`/photos/portfolio/${item.filename}`)}
                   alt={item.alt}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

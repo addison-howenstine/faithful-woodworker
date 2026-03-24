@@ -7,6 +7,7 @@ import Masonry from 'react-masonry-css'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
 import { portfolio } from '@/content'
+import { assetPath } from '@/utils/basePath'
 import EditableText from '@/components/ui/EditableText'
 
 const breakpointColumns = {
@@ -26,7 +27,7 @@ export default function PortfolioPage() {
       : portfolio.items.filter((item) => item.category === filter)
 
   const lightboxSlides = filteredItems.map((item) => ({
-    src: `/photos/portfolio/${item.filename}`,
+    src: assetPath(`/photos/portfolio/${item.filename}`),
     alt: item.alt,
     title: item.title,
   }))
@@ -78,7 +79,7 @@ export default function PortfolioPage() {
               >
                 <div className="relative overflow-hidden rounded-lg bg-border">
                   <Image
-                    src={`/photos/portfolio/${item.filename}`}
+                    src={assetPath(`/photos/portfolio/${item.filename}`)}
                     alt={item.alt}
                     width={600}
                     height={600}

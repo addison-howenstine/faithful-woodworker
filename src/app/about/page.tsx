@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { about, config } from '@/content'
+import { assetPath } from '@/utils/basePath'
 import EditableText from '@/components/ui/EditableText'
 
 export default function AboutPage() {
@@ -22,7 +23,7 @@ export default function AboutPage() {
           <div className="w-full md:w-2/5 flex-shrink-0">
             <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-border">
               <Image
-                src={about.familyPhoto}
+                src={assetPath(about.familyPhoto)}
                 alt={`${config.ownerName} and family`}
                 fill
                 className="object-cover"
