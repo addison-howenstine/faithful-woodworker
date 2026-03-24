@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "headline": "Selling Woodworking Projects to Take My Family to Disney World",
+    "subheadline": "Follow the journey. Support the mission. Own a custom piece built with purpose.",
+    "ctaPrimary": "Order a Custom Project",
+    "ctaSecondary": "View My Work",
+    "heroImage": "/photos/hero/family.jpg"
+  },
+  "storyHighlight": {
+    "heading": "The Journey",
+    "text": "This isn't just a side hustle — it's a real-time mission to fund a family trip to Disney World through handcrafted woodworking. Every project sold brings us one step closer. Follow along, support the mission, and own a custom piece built with purpose and love."
+  },
+  "progressTracker": {
+    "enabled": true,
+    "label": "Journey to Disney World",
+    "percentage": 15
+  },
+  "ctaSection": {
+    "heading": "Have an idea? Let's build it.",
+    "buttonText": "Start Your Custom Order"
+  },
+  "portfolioPreview": {
+    "heading": "Recent Work",
+    "subheading": "A selection of custom projects built with care and craftsmanship."
+  }
+}

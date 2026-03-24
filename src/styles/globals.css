@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  /* Warm woodworking palette */
+  --color-walnut: #3E2723;
+  --color-oak: #5D4037;
+  --color-wood-light: #8D6E63;
+  --color-cream: #FAF7F2;
+  --color-warm-white: #FEFCF9;
+  --color-charcoal: #2C2C2C;
+  --color-text: #1A1A1A;
+  --color-muted: #6B6B6B;
+  --color-accent: #B8860B;
+  --color-accent-light: #DAA520;
+  --color-border: #E8E0D8;
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-warm-white);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

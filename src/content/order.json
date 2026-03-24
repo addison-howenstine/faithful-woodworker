@@ -1,0 +1,32 @@
+{
+  "heading": "Order a Custom Project",
+  "subheading": "Tell me about your vision and I'll bring it to life. Fill out the form below and I'll get back to you with a quote.",
+  "successMessage": "Thank you for your order request! I'll review your details and get back to you soon.",
+  "fields": {
+    "projectTypes": [
+      "Custom Sign",
+      "Family Name Board",
+      "Wall Art",
+      "Kids Room Decor",
+      "Furniture Piece",
+      "Other"
+    ],
+    "styles": [
+      "Modern",
+      "Rustic",
+      "Farmhouse",
+      "Traditional",
+      "Minimalist",
+      "Other"
+    ],
+    "budgetRanges": [
+      "Under $100",
+      "$100 - $250",
+      "$250 - $500",
+      "$500 - $1,000",
+      "$1,000+",
+      "Not sure yet"
+    ]
+  },
+  "turnaroundNote": "Most custom projects take 2-4 weeks depending on complexity."
+}

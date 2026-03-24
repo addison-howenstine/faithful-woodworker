@@ -1,0 +1,72 @@
+{
+  "heading": "Portfolio",
+  "subheading": "Custom woodworking projects — signs, name boards, and one-of-a-kind builds.",
+  "items": [
+    {
+      "filename": "howenstine-family-sign.jpg",
+      "alt": "Howenstine Family custom wood sign with herringbone inlay and leaf accents",
+      "title": "Howenstine Family Sign",
+      "category": "sign"
+    },
+    {
+      "filename": "lejao-family-sign.jpg",
+      "alt": "Lejao Family custom wood sign with geometric wood inlay pattern",
+      "title": "Lejao Family Sign",
+      "category": "sign"
+    },
+    {
+      "filename": "lejao-family-closeup-1.jpg",
+      "alt": "Close-up detail of Lejao Family sign showing raised 3D lettering",
+      "title": "Lejao Family Sign — Detail",
+      "category": "sign"
+    },
+    {
+      "filename": "lejao-family-closeup-2.jpg",
+      "alt": "Close-up of Lejao Family sign showing wood grain and lettering detail",
+      "title": "Lejao Family Sign — Lettering",
+      "category": "sign"
+    },
+    {
+      "filename": "lightning-mcqueen-workshop.jpg",
+      "alt": "Lightning McQueen 3D wooden wall art in workshop",
+      "title": "Lightning McQueen Wall Art",
+      "category": "custom"
+    },
+    {
+      "filename": "lightning-mcqueen-angle.jpg",
+      "alt": "Lightning McQueen wall art from an angle showing 3D depth",
+      "title": "Lightning McQueen — Angled View",
+      "category": "custom"
+    },
+    {
+      "filename": "lightning-mcqueen-detail.jpg",
+      "alt": "Close-up of Lightning McQueen showing painted detail work",
+      "title": "Lightning McQueen — Detail",
+      "category": "custom"
+    },
+    {
+      "filename": "lightning-mcqueen-text-detail.jpg",
+      "alt": "Close-up of raised Lightning McQueen text on checkered background",
+      "title": "Lightning McQueen — Text Detail",
+      "category": "custom"
+    },
+    {
+      "filename": "buzz-lightyear-wall.jpg",
+      "alt": "Buzz Lightyear wooden wall art mounted in kids room",
+      "title": "Buzz Lightyear Wall Art",
+      "category": "custom"
+    },
+    {
+      "filename": "fire-station-playhouse.jpg",
+      "alt": "Custom built fire station playhouse with child playing",
+      "title": "Fire Station Playhouse",
+      "category": "custom"
+    },
+    {
+      "filename": "name-letters-spears.jpg",
+      "alt": "Custom 3D name letters with spear rod mounts — Gerard and Jordan",
+      "title": "Custom Name Letters",
+      "category": "sign"
+    }
+  ]
+}
